@@ -436,3 +436,55 @@ console.log(uniqueOrder("AABCC")); // [ 'A', 'B', 'C']
 console.log(uniqueOrder("AAABBBCCBCC")); // [ 'A', 'B', 'C', 'B', 'C']
 console.log(uniqueOrder([1, 2, 1, 2, 1])); // [ 1, 2, 1, 2, 1 ]
 console.log(uniqueOrder([1, 1, 1, 2, 2, 2, 1])); // [1, 2, 1]
+
+// ================================================
+// 編號：CANDY-015
+// 程式語言：JavaScript
+// 題目：把原本的字串拆解成 2 個字元一組，若不足 2 個字則補上底線
+// 範例：
+//      "abcdef" -> ['ab', 'cd', 'ef']
+//      "abcdefg" -> ['ab', 'cd', 'ef', 'g_']
+
+function splitString(str) {
+  const arrInDbl = str
+    .split("")
+    .map((n, i) => str[i].concat(str[i + 1]))
+    .filter((c, i) => i % 2 == 0);
+  // 先把參數陣列分割，在把每一個元素後面跟前面的合在一起，再選取偶數位置的元素
+  arrInDbl.pop();
+  // 因為最後會多一個元素要把它拿掉
+  if (str.length % 2 == 0) {
+    // 如果參數長度是偶數的話，直接回傳
+    return arrInDbl;
+  }
+  return arrInDbl.concat(str[str.length - 1].padEnd(2, "_"));
+  // 如果參數長度是奇數的話，再把最後一個元素的最後一個字，加上"_"合進來
+}
+
+console.log(splitString("abcdef")); // ["ab", "cd", "ef"]
+console.log(splitString("abcdefg")); // ["ab", "cd", "ef", "g_"]
+console.log(splitString("")); // []
+
+// =====================================================
+// 編號：CANDY-016
+// 程式語言：JavaScript
+// 題目：把原本 snake_case 的字轉換成 camelCase 格式
+// 範例："hello_world" -> "helloWorld"
+
+function toCamelCase(str) {
+  const strInArr = str.split("_");
+  // 先把字串以底線分割為陣列
+  let blankStg = "";
+  for (let i = 1; i < strInArr.length; i++) {
+    const strIdx = String(strInArr[i])[0];
+    // 選出第二個元素後之中第一個元素
+    blankStg += `${String(strInArr[i]).replace(strIdx, strIdx.toUpperCase())}`;
+    // 取代成大寫並帶入空字串
+  }
+  return `${strInArr[0]}${blankStg}`;
+  // 把第一個元素，與迴圈內每個變數blankStg合起來
+}
+
+console.log(toCamelCase("book")); // book
+console.log(toCamelCase("book_store")); // bookStore
+console.log(toCamelCase("get_good_score")); // getGoodScore

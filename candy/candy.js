@@ -479,7 +479,7 @@ function toCamelCase(str) {
     const strIdx = String(strInArr[i])[0];
     // 選出第二個元素後之中第一個元素
     blankStg += `${String(strInArr[i]).replace(strIdx, strIdx.toUpperCase())}`;
-    // 取代成大寫並帶入空字串
+    // 取代成大寫並帶入空字串!
   }
   return `${strInArr[0]}${blankStg}`;
   // 把第一個元素，與迴圈內每個變數blankStg合起來

@@ -422,6 +422,7 @@ function uniqueOrder(sequence) {
   const ArrSeq = [...sequence];
   // 先把參數轉為陣列
   for (let i = 0; i < ArrSeq.length; i++) {
+    // 跑回圈判斷，如果該元素的值等於前一個元素的值，就把前一個元素砍掉
     // 陣列跑回圈可使用forEach，並帶入元素及index
     ArrSeq.forEach((Arr, i) => {
       if (Arr == ArrSeq[i - 1]) {
@@ -429,6 +430,7 @@ function uniqueOrder(sequence) {
       }
     });
   }
+  // 但因為迴圈一次只能砍掉一個數字，所以在回圈外層再加一層回圈(因為參數內鄰近的重複值個數，不會大於參數本身的陣列長度，所以以參數陣列長度為最大值，就能確保鄰近的重複值都不見)
   return ArrSeq;
 }
 
@@ -488,3 +490,36 @@ function toCamelCase(str) {
 console.log(toCamelCase("book")); // book
 console.log(toCamelCase("book_store")); // bookStore
 console.log(toCamelCase("get_good_score")); // getGoodScore
+
+// =========================================================
+// 編號：CANDY-017
+// 程式語言：JavaScript
+// 題目：計算數字的 2 進位裡有幾個 1
+// 範例：5 -> 101 -> 2 個 1
+
+function countBits(num) {
+  const numInArr = String(num).split("");
+  // 先把參數分割成陣列
+  let result = numInArr;
+
+  for (let i = 1; i < 4; i++) {
+    result = result
+      .map((i) => {
+        if (i > 1) {
+          return `${Math.floor(Number(i) / 2)}${Number(i) % 2}`;
+        }
+        return i;
+        // 先判斷陣列中每個元素，大於1的話，將元素取除以2取商(無條件捨去)及餘數，進行一次二進位;
+      })
+      .join("")
+      .split("");
+    // 因為陣列中可能很多元素位數變成2個，所以先集合成字串在分割成陣列
+    // 因分割後的陣列，元素最大值為9，9小於2的4次方，上述只把元素進行一次二進位，所以最多執行三次二進位，就能確保所有元素顯示皆為1跟0的組合
+  }
+  return result.filter((i) => i == 1).length;
+  // 把陣列中元素等於1的篩選出來，在取陣列的長度就是1的個數了
+}
+
+console.log(countBits(1234)); // 5
+console.log(countBits(1450)); // 6
+console.log(countBits(9527)); // 8

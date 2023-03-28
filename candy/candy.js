@@ -491,6 +491,38 @@ console.log(toCamelCase("book")); // book
 console.log(toCamelCase("book_store")); // bookStore
 console.log(toCamelCase("get_good_score")); // getGoodScore
 
+// // =========================================================
+// // 編號：CANDY-017
+// // 程式語言：JavaScript
+// // 題目：計算數字的 2 進位裡有幾個 1
+// // 範例：5 -> 101 -> 2 個 1
+
+// function countBits(num) {
+//   const numInArr = String(num).split("");
+//   // 先把參數分割成陣列
+//   let result = numInArr;
+
+//   for (let i = 1; i < 4; i++) {
+//     result = result
+//       .map((i) => {
+//         if (i > 1) {
+//           return `${Math.floor(Number(i) / 2)}${Number(i) % 2}`;
+//         }
+//         return i;
+//         // 先判斷陣列中每個元素，大於1的話，將元素取除以2取商(無條件捨去)及餘數，進行一次二進位;
+//       })
+//       .join("")
+//       .split("");
+//     // 因為陣列中可能很多元素位數變成2個，所以先集合成字串在分割成陣列
+//     // 因分割後的陣列，元素最大值為9，9小於2的4次方，上述只把元素進行一次二進位，所以最多執行三次二進位，就能確保所有元素顯示皆為1跟0的組合
+//   }
+//   return result.filter((i) => i == 1).length;
+//   // 把陣列中元素等於1的篩選出來，在取陣列的長度就是1的個數了
+// }
+
+// console.log(countBits(1234)); // 5
+// console.log(countBits(1450)); // 6
+// console.log(countBits(9527)); // 8
 // =========================================================
 // 編號：CANDY-017
 // 程式語言：JavaScript
@@ -500,26 +532,39 @@ console.log(toCamelCase("get_good_score")); // getGoodScore
 function countBits(num) {
   const numInArr = String(num).split("");
   // 先把參數分割成陣列
-  let result = numInArr;
-
-  for (let i = 1; i < 4; i++) {
-    result = result
-      .map((i) => {
-        if (i > 1) {
-          return `${Math.floor(Number(i) / 2)}${Number(i) % 2}`;
-        }
-        return i;
-        // 先判斷陣列中每個元素，大於1的話，將元素取除以2取商(無條件捨去)及餘數，進行一次二進位;
-      })
-      .join("")
-      .split("");
-    // 因為陣列中可能很多元素位數變成2個，所以先集合成字串在分割成陣列
-    // 因分割後的陣列，元素最大值為9，9小於2的4次方，上述只把元素進行一次二進位，所以最多執行三次二進位，就能確保所有元素顯示皆為1跟0的組合
-  }
-  return result.filter((i) => i == 1).length;
-  // 把陣列中元素等於1的篩選出來，在取陣列的長度就是1的個數了
+  return numInArr
+    .map((i) => {
+      let binEight = Math.floor(Number(i) / 2 ** 3);
+      let binFour = Math.floor((Number(i) % 2 ** 3) / 2 ** 2);
+      let binTwo = Math.floor(((Number(i) % 2 ** 3) % 2 ** 2) / 2);
+      // 因分割後的陣列，元素最大值為9，9小於2的4次方，以2的3次方，取商之後，接著取餘數；接著減一個2的次方數依序取商，在向下取餘數
+      return `${binEight}${binFour}${binTwo}${Number(i) % 2}`
+        .split("")
+        .filter((i) => i == 1);
+      // 把每個四位數的陣列在分割成陣列並篩選出值為1的陣列
+    })
+    .flat().length;
+  // 把陣列中的陣列攤平成一個陣列，最後取陣列長度就是值為1的個數
 }
 
 console.log(countBits(1234)); // 5
 console.log(countBits(1450)); // 6
 console.log(countBits(9527)); // 8
+
+// ===========================================
+// 編號：CANDY-018
+// 程式語言：JavaScript
+// 題目：實作一個可以印出隨機整數的函數
+
+function randomNumber(min, max = min) {
+  // 如果只有一個參數就預設最大值等於最小值
+  if (max == min) {
+    return Math.floor(Math.random() * max);
+    // Math.random()是隨機0 -1的浮點數，如果最大值等於最小值，就random後乘以最小值，並無條件捨去，確保不會超過最小值
+  }
+  return Math.floor(Math.random() * (max - min) + min);
+  // max - min 就是隨機0 - 1之間乘以最大值到最小值之間的數字，但有可能隨機的數字太小，會隨機到小於最小值的數字，所以要再加上最小值
+}
+
+console.log(randomNumber(50)); // 隨機印出 0 ~ 49 之間的任何一個數字
+console.log(randomNumber(5, 30)); // 隨機印出 5 ~ 29 之間的任何一個數字

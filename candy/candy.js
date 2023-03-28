@@ -530,21 +530,8 @@ console.log(toCamelCase("get_good_score")); // getGoodScore
 // 範例：5 -> 101 -> 2 個 1
 
 function countBits(num) {
-  const numInArr = String(num).split("");
-  // 先把參數分割成陣列
-  return numInArr
-    .map((i) => {
-      let binEight = Math.floor(Number(i) / 2 ** 3);
-      let binFour = Math.floor((Number(i) % 2 ** 3) / 2 ** 2);
-      let binTwo = Math.floor(((Number(i) % 2 ** 3) % 2 ** 2) / 2);
-      // 因分割後的陣列，元素最大值為9，9小於2的4次方，以2的3次方，取商之後，接著取餘數；接著減一個2的次方數依序取商，在向下取餘數
-      return `${binEight}${binFour}${binTwo}${Number(i) % 2}`
-        .split("")
-        .filter((i) => i == 1);
-      // 把每個四位數的陣列在分割成陣列並篩選出值為1的陣列
-    })
-    .flat().length;
-  // 把陣列中的陣列攤平成一個陣列，最後取陣列長度就是值為1的個數
+  return num.toString(2).replaceAll("0", "").length;
+  // 直接把參數toString(2)轉為二進位後，去掉所有的0合併在取參數長度(1的個數)
 }
 
 console.log(countBits(1234)); // 5

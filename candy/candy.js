@@ -555,3 +555,22 @@ function randomNumber(min, max = min) {
 
 console.log(randomNumber(50)); // 隨機印出 0 ~ 49 之間的任何一個數字
 console.log(randomNumber(5, 30)); // 隨機印出 5 ~ 29 之間的任何一個數字
+
+// ===========================================
+// 編號：CANDY-019
+// 程式語言：JavaScript
+// 題目：檢查是否為某個數字的平方數
+
+function isSquare(num) {
+  const sqrtNum = Math.floor(Math.sqrt(num));
+  // 把參數開根號後，無條件捨去，如果參數開根號是整數也不會變化
+  return num == sqrtNum * sqrtNum;
+  // 判斷參數是不是等於，參數開根號並無條件捨去後的平方；如果不等於，代表參數不是某個數字的平方數(因為參數開根號後是浮點數)
+}
+
+console.log(isSquare(0)); // true
+console.log(isSquare(4)); // true
+console.log(isSquare(5)); // false
+console.log(isSquare(100)); // true
+console.log(isSquare(-4)); // false
+console.log(isSquare(-1)); // false

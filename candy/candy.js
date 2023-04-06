@@ -574,3 +574,29 @@ console.log(isSquare(5)); // false
 console.log(isSquare(100)); // true
 console.log(isSquare(-4)); // false
 console.log(isSquare(-1)); // false
+
+console.log(11111111);
+
+// ========================================================
+// 編號：CANDY-020
+// 程式語言：JavaScript
+// 題目：檢查字串的 x 跟 o 的數量是不是一樣多，不分大小寫
+
+function xxoo(str) {
+  const splitStr = str.split("");
+  // 先把參數分割成陣列
+  function isEqualOrNot(elm) {
+    return splitStr.filter((i) => i.toLowerCase() == elm).length;
+    // 在把元素統一小寫後，篩選出等於指定參數的元素，最後算出陣列長度
+  }
+  return isEqualOrNot("x") == isEqualOrNot("o");
+  // 看陣列中符合'x'跟符合'o'的陣列長度有沒有一樣，就能知道個數一不一樣了
+  // 因為兩個參數其中一個參數都是分割後的陣列，改成只帶一個參數"x"或"o"
+}
+
+console.log(xxoo("ooxx")); // true
+console.log(xxoo("xxoo")); // true
+console.log(xxoo("xxooo")); // false
+console.log(xxoo("xoox")); // true
+console.log(xxoo("ooAA")); // false
+console.log(xxoo("xoXoA")); // true

@@ -131,33 +131,22 @@ p findDifferent([8, 3, 3, 3, 3, 3, 3, 3])
 # 印出 8
 
 # ===============================================
-# 編號：CANDY-004
+# 編號：CANDY-007
 # 程式語言：Ruby
-# 題目：完成函數的內容，把傳進去的秒數變成平常人類看的懂的時間格式
-# 
+# 題目：在某個數字陣列裡，可能藏有某個不合群的奇數或偶數，試著找出它！
 
-def humanReadableTimer(seconds)
-  seconds.to_t
+def findSomeDifferent(numbers)
+  num_odd = numbers.select {|x| x.odd?}
+  num_even = numbers.select {|x| x.even?}
+  if num_odd.length > 1
+    num_even
+  else
+    num_odd
+  end
+  # 如果參數的奇數陣列長度大於1，代表參數裡只有一個偶數，反之亦然
 end 
 
-puts humanReadableTimer(0) 
-# 印出 00:00:00
-puts humanReadableTimer(59)
-# 印出 00:00:59
-puts humanReadableTimer(60) 
-# 印出 00:01:00
-puts humanReadableTimer(90)  
-# 印出 00:01:30
-puts humanReadableTimer(3599)
-# 印出 00:59:59
-puts humanReadableTimer(3600) 
-# 印出 01:00:00
-puts humanReadableTimer(45296) 
-# 印出 12:34:56
-puts humanReadableTimer(86399) 
-# 印出 23:59:59
-puts humanReadableTimer(86400) 
-# 印出 24:00:00
-puts humanReadableTimer(359999)
-# 印出 99:59:59
-
+puts findSomeDifferent([2, 4, 0, 100, 4, 11, 2602, 36]) 
+# 印出 11
+puts findSomeDifferent([160, 3, 1719, 19, 11, 13, -21]) 
+# 印出 160

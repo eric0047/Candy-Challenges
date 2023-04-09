@@ -173,3 +173,20 @@ puts highestScoreWord("heyn i need a rubygem up to build this")
 # 印出 rubygem
 puts highestScoreWord("in time machine there are some bugs")
 # 印出 there
+
+# =====================================
+# 編號：CANDY-009
+# 程式語言：Ruby
+# 題目：移除網址中的錨點（Anchor）
+
+def removeAnchor(url)
+  url.split("#").first
+  #  把參數以"#"為基準拆成陣列，取第一個
+end 
+
+puts removeAnchor("5xruby.tw")
+# 印出 5xruby.tw
+puts removeAnchor("5xruby.tw/#about")
+# 印出 5xruby.tw/
+puts removeAnchor("5xruby.tw/courses/?page=1#about")
+# 印出 5xruby.tw/courses/?page=1

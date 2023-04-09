@@ -190,3 +190,39 @@ puts removeAnchor("5xruby.tw/#about")
 # 印出 5xruby.tw/
 puts removeAnchor("5xruby.tw/courses/?page=1#about")
 # 印出 5xruby.tw/courses/?page=1
+
+# ============================================
+# 編號：CANDY-010
+# 程式語言：Ruby
+# 題目：把數字以 10 進位展開式呈現，數字均為大於 0 的正整數
+# 範例：9527 變成 "1000 x 9 + 100 x 5 + 10 x 2 + 7"
+
+def expandedForm(num)
+  num_decimal = num.to_s.split("")[0..-2].reverse.map.with_index {|c , index| 
+    if c.to_i > 0 
+      "#{10 ** (index + 1)} x #{c} + "
+    end
+  }.reverse.join("")
+  # 把數字轉成字串後分割成陣列，把除了最後一個字串(因為裡面都要乘以10尾數不用乘)的陣列逆向，判斷每個元素大於0後，乘以10的陣列位置次方(因為位置從0開始，所以要加1)，跑完map之後，把陣列再逆向一次，轉為字串
+
+   last_num =  num.to_s[-1]
+
+  if last_num == "0"
+    num_decimal.slice(0..-3)
+    # 如果參數最後一個位數是0，就把字串最後的空格跟+號砍掉
+  else
+    num_decimal.concat(last_num)
+    # 如果不是就直接加進去
+  end
+end 
+
+puts expandedForm(8)
+# 印出 8
+puts expandedForm(25)
+# 印出 10 x 2 + 5
+puts expandedForm(148)
+# 印出 100 x 1 + 10 x 4 + 8
+puts expandedForm(1450)
+# 印出 1000 x 1 + 100 x 4 + 10 x 5
+puts expandedForm(60308) 
+# 印出 10000 x 6 + 100 x 3 + 8

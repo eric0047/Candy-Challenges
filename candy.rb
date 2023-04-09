@@ -150,3 +150,26 @@ puts findSomeDifferent([2, 4, 0, 100, 4, 11, 2602, 36])
 # 印出 11
 puts findSomeDifferent([160, 3, 1719, 19, 11, 13, -21]) 
 # 印出 160
+
+# ===============================================
+# 編號：CANDY-008
+# 程式語言：Ruby
+# 題目：傳入一字串，計算得分最高的字
+#      英文字母 a 得 1 分、b 得 2 分、c 得 3 分，以此類推。
+#      所有傳入的字都是小寫。
+
+def highestScoreWord(input)
+  input_sum = input.split(" ").map {|x| x.bytes.sum}
+  # 先把參數以空白為基準分開成陣列，轉為數字後加總
+  input_sum_max = input_sum.index(input_sum.max)
+  # 找出最大值是在陣列中的哪個位置
+  input.split(" ")[input_sum_max]
+  # 最大值的位置等於，參數以空白為基準分割成陣列後的位置
+end 
+
+puts highestScoreWord("lorem ipsum dolor sit amet") 
+# 印出 ipsum
+puts highestScoreWord("heyn i need a rubygem up to build this")
+# 印出 rubygem
+puts highestScoreWord("in time machine there are some bugs")
+# 印出 there
